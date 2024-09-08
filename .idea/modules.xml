@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Array/Array.iml" filepath="$PROJECT_DIR$/Array/Array.iml" />
       <module fileurl="file://$PROJECT_DIR$/CodingTest.iml" filepath="$PROJECT_DIR$/CodingTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/week1/problem 1475/problem 1475.iml" filepath="$PROJECT_DIR$/week1/problem 1475/problem 1475.iml" />
-      <module fileurl="file://$PROJECT_DIR$/week1/problem 2577/problem 2577.iml" filepath="$PROJECT_DIR$/week1/problem 2577/problem 2577.iml" />
-      <module fileurl="file://$PROJECT_DIR$/week1/week1.iml" filepath="$PROJECT_DIR$/week1/week1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LinkedList/LinkedList.iml" filepath="$PROJECT_DIR$/LinkedList/LinkedList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Array/problem 1475/problem 1475.iml" filepath="$PROJECT_DIR$/Array/problem 1475/problem 1475.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Array/problem 2577/problem 2577.iml" filepath="$PROJECT_DIR$/Array/problem 2577/problem 2577.iml" />
     </modules>
   </component>
 </project>
