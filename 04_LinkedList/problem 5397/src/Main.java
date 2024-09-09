@@ -13,33 +13,25 @@ public class Main {
             String str = br.readLine();
             LinkedList<Character> list = new LinkedList<>();
 
-            list.add('!');
             int cursor = 0;
 
             for (int j = 0; j < str.length(); j++) {
                 char token = str.charAt(j);
 
-//                System.out.println("cursor : " + cursor);
                 if (token == '<') {
                     if (cursor != 0) {
-                        char temp = list.get(cursor-1);
-                        list.set(cursor-1, list.get(cursor));
-                        list.set(cursor, temp);
                         cursor--;
                     }
                 }
                 else if (token == '>') {
-                    if (cursor != list.size()-1) {
-                        char temp = list.get(cursor + 1);
-                        list.set(cursor + 1, list.get(cursor));
-                        list.set(cursor, temp);
+                    if (cursor != list.size()) {
                         cursor++;
                     }
                 }
                 else if(token == '-') {
                     if (cursor != 0) {
-                        list.remove(cursor - 1);
                         cursor--;
+                        list.remove(cursor);
                     }
                 }
                 else {
@@ -47,9 +39,7 @@ public class Main {
                     cursor++;
                 }
 
-//                System.out.println("list: " + list + "\n");
             }
-            list.remove(list.indexOf('!'));
             StringBuilder answer = new StringBuilder();
             for (char ch : list) {
                 answer.append(ch);
