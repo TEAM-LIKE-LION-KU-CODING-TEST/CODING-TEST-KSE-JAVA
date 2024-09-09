@@ -11,43 +11,56 @@ public class Main {
 
         for (int i = 0; i < num; i++) {
             String str = br.readLine();
-            LinkedList<String> list = new LinkedList<>();
-            list.add("!");
-            for (int j = 0; j < str.length(); j++) {
-                String token = str.substring(j, j+1);
-                int cursor = list.indexOf("!");
+            LinkedList<Character> list = new LinkedList<>();
 
-                if (token.equals("<")) {
+            list.add('!');
+            int cursor = 0;
+
+            for (int j = 0; j < str.length(); j++) {
+                char token = str.charAt(j);
+
+//                System.out.println("cursor : " + cursor);
+                if (token == '<') {
                     if (cursor != 0) {
-                        String temp = list.get(cursor-1);
+                        char temp = list.get(cursor-1);
                         list.set(cursor-1, list.get(cursor));
                         list.set(cursor, temp);
+                        cursor--;
                     }
                 }
-                else if (token.equals(">")) {
+                else if (token == '>') {
                     if (cursor != list.size()-1) {
-                        String temp = list.get(cursor + 1);
+                        char temp = list.get(cursor + 1);
                         list.set(cursor + 1, list.get(cursor));
                         list.set(cursor, temp);
+                        cursor++;
                     }
                 }
-                else if(token.equals("-")) {
+                else if(token == '-') {
                     if (cursor != 0) {
                         list.remove(cursor - 1);
+                        cursor--;
                     }
                 }
-                else list.add(cursor, token);
+                else {
+                    list.add(cursor, token);
+                    cursor++;
+                }
 
+//                System.out.println("list: " + list + "\n");
             }
-            String answer = "";
-            while(list.size() > 1) {
-                answer += list.removeFirst();
+            list.remove(list.indexOf('!'));
+            StringBuilder answer = new StringBuilder();
+            for (char ch : list) {
+                answer.append(ch);
+            }
 
-            }
-            bw.write(answer + "\n");
+            bw.write(answer.toString());
+            bw.newLine();
         }
         bw.flush();
         bw.close();
+        br.close();
 
     }
 }
