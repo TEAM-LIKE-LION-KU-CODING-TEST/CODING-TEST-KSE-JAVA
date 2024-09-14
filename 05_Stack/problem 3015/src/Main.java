@@ -17,8 +17,9 @@ public class Main {
 
         for (int i = 0; i < N; i++) {
             int num = Integer.parseInt(br.readLine());
-            int count = 1;
+            int count = 1; // 연속 같은 키 사람 (기본 1)
 
+            // 스택보다 내 키가 더 크면 스택 pop
             while (!stack.isEmpty() && stack.peek()[0] < num) {
                 int[] top = stack.pop();
                 pair += top[1];
@@ -40,7 +41,7 @@ public class Main {
 
         }
 
-        bw.write(pair +"\n");
+        bw.write(pair +"");
 
         bw.flush();
         bw.close();
