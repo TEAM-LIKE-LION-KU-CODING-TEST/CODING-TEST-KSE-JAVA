@@ -7,37 +7,40 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        Stack<Integer> stack = new Stack<>();
+        // {키, 연속 같은 키 사람}
+        Stack<int[]> stack = new Stack<>();
 
         int N = Integer.parseInt(br.readLine());
 
         // 쌍의 수
         int pair = 0;
-        // stack 크기
-        int size = 0;
 
         for (int i = 0; i < N; i++) {
-            //System.out.println("pair - " + pair + "\n__");
-            pair += size;
-
             int num = Integer.parseInt(br.readLine());
+            int count = 1;
 
-            System.out.println("size - " + size);
-            while(size > 0 && stack.peek() < num) {
-                System.out.println("peek - " + stack.peek());
-                //System.out.println("pop - " + stack.peek());
-                stack.pop();
-                size--;
+            while (!stack.isEmpty() && stack.peek()[0] < num) {
+                int[] top = stack.pop();
+                pair += top[1];
             }
 
-            //System.out.println("push - " + num);
-            stack.push(num);
-            size++;
+            //스택에 키 같은 사람이 있는 경우
+            if (!stack.isEmpty() && stack.peek()[0] == num) {
+                int[] top = stack.pop();
+                pair += top[1];
+                count += top[1];
+            }
 
-            System.out.println("-----------------");
+            if (!stack.isEmpty()) {
+                pair++;
+            }
+
+            int[] push = {num, count};
+            stack.push(push);
+
         }
 
-        bw.write(pair +"");
+        bw.write(pair +"\n");
 
         bw.flush();
         bw.close();
