@@ -13,7 +13,7 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
 
         // 쌍의 수
-        int pair = 0;
+        long pair = 0;
 
         for (int i = 0; i < N; i++) {
             int num = Integer.parseInt(br.readLine());
