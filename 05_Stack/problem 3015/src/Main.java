@@ -11,17 +11,30 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
+        // 쌍의 수
         int pair = 0;
+        // stack 크기
+        int size = 0;
 
         for (int i = 0; i < N; i++) {
+            //System.out.println("pair - " + pair + "\n__");
+            pair += size;
+
             int num = Integer.parseInt(br.readLine());
 
-            if(stack.isEmpty())
-                stack.push(num);
-            else if (stack.peek() < num) {
+            System.out.println("size - " + size);
+            while(size > 0 && stack.peek() < num) {
+                System.out.println("peek - " + stack.peek());
+                //System.out.println("pop - " + stack.peek());
                 stack.pop();
-                stack.
+                size--;
             }
+
+            //System.out.println("push - " + num);
+            stack.push(num);
+            size++;
+
+            System.out.println("-----------------");
         }
 
         bw.write(pair +"");
