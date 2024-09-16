@@ -20,7 +20,7 @@ public class Main {
         // stack 담기
         // {탑 번호, 높이}
         Stack<int[]> s = new Stack<>();
-        String answer = "";
+        StringBuilder answer = new StringBuilder();
 
         for (int i = 0; i < N; i++) {
 
@@ -29,14 +29,14 @@ public class Main {
                 s.pop();
             }
 
-            if(!s.isEmpty()) answer += s.peek()[0] + " ";
-            else answer += "0 ";
+            if(!s.isEmpty()) answer.append(s.peek()[0]).append(" ");
+            else answer.append("0 ");
 
             s.add(new int[]{i + 1, top[i]});
 
         }
 
-        bw.write(answer);
+        bw.write(answer.toString());
 
         bw.flush();
         bw.close();
