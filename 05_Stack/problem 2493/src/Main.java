@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -10,12 +11,43 @@ public class Main {
 
         // top 길이 저장 (String)
         String[] str = br.readLine().split(" ");
-        int[] top = new int[str.length];
+        int[] top = new int[N];
 
-        for(int i = 0; i < str.length; i++) {
+        for(int i = 0; i < N; i++) {
             top[i] = Integer.parseInt(str[i]);
         }
 
-        System.out.println("Hello world!");
+        // stack 담기
+        // {탑 번호, 높이}
+        Stack<int[]> s = new Stack<>();
+        String answer = "";
+
+        for (int i = 0; i < N; i++) {
+
+            if(s.isEmpty()) {
+                s.add(new int[]{i + 1, top[i]});
+
+            }
+
+            else {
+                // top보다 큰 새 값이 들어올 경우 top을 pop 하고 새 값 넣음
+                while (!s.isEmpty() && s.peek()[1] < top[i]) {
+                    s.pop();
+                }
+                s.add(new int[]{i + 1, top[i]});
+            }
+
+            int[] temp = s.pop();
+            if(!s.isEmpty()) answer += s.peek()[0] + " ";
+            else answer += "0 ";
+            s.add(temp);
+
+        }
+
+        bw.write(answer);
+
+        bw.flush();
+        bw.close();
+        br.close();
     }
 }
