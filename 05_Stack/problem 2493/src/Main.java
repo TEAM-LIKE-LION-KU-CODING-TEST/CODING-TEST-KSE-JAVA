@@ -24,23 +24,15 @@ public class Main {
 
         for (int i = 0; i < N; i++) {
 
-            if(s.isEmpty()) {
-                s.add(new int[]{i + 1, top[i]});
-
+            // top보다 큰 새 값이 들어올 경우 top을 pop 하고 새 값 넣음
+            while (!s.isEmpty() && s.peek()[1] < top[i]) {
+                s.pop();
             }
 
-            else {
-                // top보다 큰 새 값이 들어올 경우 top을 pop 하고 새 값 넣음
-                while (!s.isEmpty() && s.peek()[1] < top[i]) {
-                    s.pop();
-                }
-                s.add(new int[]{i + 1, top[i]});
-            }
-
-            int[] temp = s.pop();
             if(!s.isEmpty()) answer += s.peek()[0] + " ";
             else answer += "0 ";
-            s.add(temp);
+
+            s.add(new int[]{i + 1, top[i]});
 
         }
 
