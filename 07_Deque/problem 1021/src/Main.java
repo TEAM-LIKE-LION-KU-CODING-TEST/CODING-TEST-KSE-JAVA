@@ -31,6 +31,7 @@ public class Main {
 
             int index = 0;
 
+            // 타겟 위치 찾기
             for (int num : deque) {
                 if (num == arr[i]) break;
                 index++;
@@ -49,14 +50,9 @@ public class Main {
                     deque.addFirst(deque.removeLast());
             }
 
-            System.out.println(deque);
             deque.removeFirst();
-            System.out.println(deque);
-            System.out.println();
         }
 
         System.out.println(answer);
-
-
     }
 }
