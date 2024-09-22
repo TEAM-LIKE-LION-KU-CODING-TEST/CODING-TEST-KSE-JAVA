@@ -31,10 +31,9 @@ public class Main {
             }
             deq.addLast(i);
 
-            answer += arr[deq.peek()] + " ";
+//            answer += arr[deq.peek()] + " ";
+            bw.write(arr[deq.peek()] + " ");
         }
-
-        bw.write(answer);
 
         bw.flush();
         bw.close();
