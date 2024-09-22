@@ -31,16 +31,14 @@ public class Main {
             }
             deq.addLast(i);
 
-//            int temp = Integer.parseInt(A.nextToken());
-//            while (!deq.isEmpty() && temp < deq.peekLast()) {
-//                deq.removeLast();
-//            }
-//            deq.addLast(temp);
-
-            System.out.println(deq);
-            System.out.println(arr[deq.peek()]);
-            System.out.println();
+            answer += arr[deq.peek()] + " ";
         }
+
+        bw.write(answer);
+
+        bw.flush();
+        bw.close();
+        br.close();
 
     }
 }
