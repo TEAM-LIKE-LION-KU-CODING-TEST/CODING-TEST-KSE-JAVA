@@ -11,52 +11,62 @@ public class Main {
 
         String str = br.readLine();
 
-        int answer = 1;
-
-        Character last = null;
+        int temp = 0;
 
         for (int i = 0; i < str.length(); i++) {
 
-            Character token = str.charAt(i);
+            char token = str.charAt(i);
 
             switch (token) {
                 case '(':
                     stack.push(token);
+                    System.out.println(stack);
                     break;
 
                 case ')' :
-                    if(stack.peek() == '(')
+                    while(!stack.isEmpty() && (stack.peek() != '(' || stack.peek() != '[')) {
+                       temp += Character.getNumericValue(stack.pop());
+                    }
+                    if(!stack.isEmpty() && stack.peek() == '(') {
+                        if(temp == 0) temp++;
                         stack.pop();
+                        stack.push((char) (temp * 2));
+                    }
                     else {
                         bw.write("0");
                         bw.flush();
                         System.exit(0);
                     }
-                    answer *= 2;
+                    System.out.println(stack);
                     break;
 
                 case '[':
                     stack.push(token);
+                    System.out.println(stack);
                     break;
 
                 case ']':
-                    if(stack.peek() == '[')
+                    while(!stack.isEmpty() && (stack.peek() != '(' || stack.peek() != '[')) {
+                        temp += Character.getNumericValue(stack.pop());
+                    }
+                    if(!stack.isEmpty() && stack.peek() == '[') {
+                        if(temp == 0) temp++;
                         stack.pop();
+                        stack.push((char) (temp * 3));
+                    }
                     else {
                         bw.write("0");
                         bw.flush();
                         System.exit(0);
                     }
-                    answer *= 3;
+                    System.out.println(stack);
                     break;
             }
-
-            last = token;
         }
 
-        if (!stack.isEmpty()) answer = 0;
+        if (!stack.isEmpty()) temp = 0;
 
-        bw.write(answer + "");
+        bw.write(temp + "");
 
         bw.flush();
         bw.close();
