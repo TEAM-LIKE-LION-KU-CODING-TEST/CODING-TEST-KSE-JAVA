@@ -15,8 +15,6 @@ public class Main {
         // flag == 1일 때 pop => 레이저
         // flag == 0일 때 pop => 쇠막대기 끝
         int flag = 0;
-        // 쇠막대기 사이 레이저 개수
-        int razer = 0;
         // 쇠막대기 조각의 수
         int answer = 0;
 
@@ -33,7 +31,6 @@ public class Main {
                 case ')':
                     stack.pop();
                     if(flag == 1) {
-                        razer++;
                         answer += stack.size();
                         flag = 0;
                     }
