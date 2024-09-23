@@ -24,13 +24,14 @@ public class Main {
                     break;
 
                 case ')' :
-                    while(!stack.isEmpty() && (stack.peek() != '(' || stack.peek() != '[')) {
+                    while(!stack.isEmpty() && (stack.peek() != '(' && stack.peek() != '[')) {
                        temp += Character.getNumericValue(stack.pop());
                     }
                     if(!stack.isEmpty() && stack.peek() == '(') {
                         if(temp == 0) temp++;
                         stack.pop();
                         stack.push((char) (temp * 2));
+                        temp = 0;
                     }
                     else {
                         bw.write("0");
@@ -46,13 +47,14 @@ public class Main {
                     break;
 
                 case ']':
-                    while(!stack.isEmpty() && (stack.peek() != '(' || stack.peek() != '[')) {
+                    while(!stack.isEmpty() && (stack.peek() != '(' && stack.peek() != '[')) {
                         temp += Character.getNumericValue(stack.pop());
                     }
                     if(!stack.isEmpty() && stack.peek() == '[') {
                         if(temp == 0) temp++;
                         stack.pop();
                         stack.push((char) (temp * 3));
+                        temp = 0;
                     }
                     else {
                         bw.write("0");
@@ -64,7 +66,9 @@ public class Main {
             }
         }
 
-        if (!stack.isEmpty()) temp = 0;
+        while (!stack.isEmpty()) {
+            temp += Character.getNumericValue(stack.pop());
+        }
 
         bw.write(temp + "");
 
