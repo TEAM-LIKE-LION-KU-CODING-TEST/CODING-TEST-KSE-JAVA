@@ -43,38 +43,13 @@ public class Main {
 
     public static void BFS() {
 
-        Queue<Point> melt = new LinkedList<>();
         while(!ice.isEmpty()) {
 
-            int iceSize = ice.size();
-            for (int l = 0; l < iceSize; l++) {
+            // 빙판 녹음
+            iceBFS();
 
-                Point temp = ice.poll();
-                Boolean isMelt = false;
-
-                // 상하좌우 이동
-                for (int i = 0; i < 4; i++) {
-
-                    int nx = temp.x + dx[i];
-                    int ny = temp.y + dy[i];
-
-                    if (nx >= 0 && nx < lake.length && ny >= 0
-                        && ny < lake[0].length && lake[nx][ny].equals(".")) {
-                        melt.add(temp);
-                        isMelt = true;
-                        break;
-                    }
-                }
-
-                if (!isMelt) {
-                    ice.add(temp);
-                }
-            }
-
-            while (!melt.isEmpty()) {
-                Point temp = melt.poll();
-                lake[temp.x][temp.y] = ".";
-            }
+            // 백조 움직임
+            swanBFS();
 
             String str = "";
             for (int x = 0; x < lake.length; x++) {
@@ -85,6 +60,64 @@ public class Main {
             }
             System.out.println(str);
             System.out.println();
+        }
+    }
+
+    public static void iceBFS() {
+
+        Queue<Point> melt = new LinkedList<>();
+
+        int iceSize = ice.size();
+        for (int l = 0; l < iceSize; l++) {
+
+            Point temp = ice.poll();
+            Boolean isMelt = false;
+
+            // 상하좌우 이동
+            for (int i = 0; i < 4; i++) {
+
+                int nx = temp.x + dx[i];
+                int ny = temp.y + dy[i];
+
+                if (nx >= 0 && nx < lake.length && ny >= 0
+                    && ny < lake[0].length && lake[nx][ny].equals(".")) {
+                    melt.add(temp);
+                    isMelt = true;
+                    break;
+                }
+            }
+
+            if (!isMelt) {
+                ice.add(temp);
+            }
+        }
+
+        while (!melt.isEmpty()) {
+            Point temp = melt.poll();
+            lake[temp.x][temp.y] = ".";
+        }
+    }
+
+
+    public static void swanBFS() {
+
+        int swanSize = swan.size();
+        for (int s = 0; s < swanSize; s++) {
+
+            Point temp = swan.poll();
+
+            for (int i = 0; i < 4; i++) {
+
+                int nx = temp.x + dx[i];
+                int ny = temp.y + dy[i];
+
+                if (nx >= 0 && nx < lake.length && ny >= 0
+                    && ny < lake[0].length && lake[nx][ny].equals(".")) {
+
+                    lake[nx][ny] = "L";
+                    swan.add(new Point(nx, ny));
+                }
+            }
         }
     }
 }
