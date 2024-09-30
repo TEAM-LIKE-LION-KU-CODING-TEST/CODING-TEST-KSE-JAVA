@@ -27,8 +27,6 @@ public class Main {
             }
         }
 
-        System.out.println(Arrays.deepToString(board));
-
         BFS(0, 0);
 
         bw.write(dis[N-1][M-1] + "");
@@ -42,19 +40,22 @@ public class Main {
     public static void BFS(int x, int y) {
 
         Queue<Point> q = new LinkedList<>();
+
         q.add(new Point(x, y));
-        board[x][y] = 1;
+        dis[x][y] = 1;
 
         while(!q.isEmpty()) {
+
             Point temp = q.poll();
 
             // 상하좌우 이동
             for (int i = 0; i < 4; i++) {
-                int nx = x + dx[i];
-                int ny = y + dy[i];
+                int nx = temp.x + dx[i];
+                int ny = temp.y + dy[i];
 
-                if (nx >= 0 && nx < board.length && ny >= 0 && ny < board[0].length) {
-                    board[nx][ny] = 1;
+                if (nx >= 0 && nx < board.length && ny >= 0
+                    && ny < board[0].length && board[nx][ny] == 1) {
+                    board[nx][ny] = 0;
                     q.add(new Point(nx, ny));
                     dis[nx][ny] = dis[temp.x][temp.y] + 1;
                 }
