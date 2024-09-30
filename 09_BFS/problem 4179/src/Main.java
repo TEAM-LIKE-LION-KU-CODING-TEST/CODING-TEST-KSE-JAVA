@@ -1,13 +1,11 @@
 import java.io.*;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class Main {
 
     static int[] dx = {0, 0, -1, 1};
     static int[] dy = {-1, 1, 0, 0};
-    static String[][] maze, dis;
+    static String[][] maze;
     static Queue<Point> fireQ;
     static Queue<Point> jhQ;
 
@@ -64,38 +62,47 @@ public class Main {
                     int ny = temp.y + dy[j];
 
                     if (nx >= 0 && nx < maze.length && ny >= 0
-                        && ny < maze[0].length && (maze[nx][ny].equals(".") || maze[nx][ny].equals("J"))) {
+                        && ny < maze[0].length && maze[nx][ny].equals(".")) {
                         maze[nx][ny] = "F";
                         fireQ.add(new Point(nx, ny));
                     }
                 }
-                fireQ.add(temp);
             }
 
 
             // 지훈 움직임
-            Point jihoon = jhQ.poll();
+            int jhSize = jhQ.size();
+            for (int i = 0; i < jhSize; i++) {
+                Point jihoon = jhQ.poll();
 
-            // 상하좌우 이동
-            for (int i = 0; i < 4; i++) {
-                int nx = jihoon.x + dx[i];
-                int ny = jihoon.y + dy[i];
+                // 상하좌우 이동
+                for (int j = 0; j < 4; j++) {
+                    int nx = jihoon.x + dx[j];
+                    int ny = jihoon.y + dy[j];
 
-                if (nx < 0 || nx >= maze.length || ny < 0 || ny >= maze[0].length) {
-                    return String.valueOf(++count);
-                } else if (nx >= 0 && nx < maze.length && ny >= 0
-                           && ny < maze[0].length && maze[nx][ny].equals(".")) {
-                    maze[nx][ny] = "J";
-                    jhQ.add(new Point(nx, ny));
-                    count++;
+                    if (nx < 0 || nx >= maze.length || ny < 0 || ny >= maze[0].length) {
+                        return String.valueOf(++count);
+                    }
+
+                    if (maze[nx][ny].equals(".")) {
+                        maze[nx][ny] = "J";
+                        jhQ.add(new Point(nx, ny));
+                    }
                 }
+//                System.out.println("count : " + count);
+//
+//                String str = "";
+//                for (int x = 0; x < 7; x++) {
+//                    for (int y = 0; y < 7; y++) {
+//                        str += maze[x][y];
+//                    }
+//                    str += "\n";
+//                }
+//                System.out.println(str);
+//                System.out.println();
             }
-
-//            System.out.println(Arrays.deepToString(maze));
-//            System.out.println();
-//            System.out.println();
+            count++;
         }
-
         return "IMPOSSIBLE";
     }
 }
