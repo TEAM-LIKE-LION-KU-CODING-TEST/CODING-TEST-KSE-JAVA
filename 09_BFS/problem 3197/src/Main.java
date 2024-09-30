@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -7,9 +6,10 @@ public class Main {
 
     static int[] dx = {0, 0, -1, 1};
     static int[] dy = {-1, 1, 0, 0};
+
     static String[][] lake;
     static Queue<Point> ice;
-    static Queue<Point> swan;
+    static Queue<Point> swan1, swan2;
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -22,7 +22,8 @@ public class Main {
 
         lake = new String [R][C];
         ice = new LinkedList<>();
-        swan = new LinkedList<>();
+        swan1 = new LinkedList<>();
+        swan2 = new LinkedList<>();
 
         for (int i = 0; i < R; i++) {
             String str = br.readLine();
@@ -33,23 +34,67 @@ public class Main {
                     ice.add(new Point(i, j));
                 }
                 else if(lake[i][j].equals("L")) {
-                    swan.add(new Point(i, j));
+//                    swan.add(new Point(i, j));
+                    if (swan1.isEmpty()) {
+                        swan1.add(new Point(i, j));
+                    }
+                    else {
+                        swan2.add(new Point(i, j));
+                        lake[i][j] = "S";
+                    }
                 }
             }
         }
 
-        BFS();
+        String str = "";
+        for (int x = 0; x < lake.length; x++) {
+            for (int y = 0; y < lake[0].length; y++) {
+                str += lake[x][y];
+            }
+            str += "\n";
+        }
+        System.out.println(str);
+        System.out.println();
+
+        int ans = BFS();
+
+        bw.write(String.valueOf(ans));
+        bw.flush();
+        bw.close();
+        br.close();
     }
 
-    public static void BFS() {
+    public static int BFS() {
 
-        while(!ice.isEmpty()) {
+        int count = 0;
+
+        while(true) {
 
             // 빙판 녹음
             iceBFS();
 
             // 백조 움직임
-            swanBFS();
+            swanBFS(swan1);
+            swanBFS(swan2);
+
+            count++;
+
+            for (int s = 0; s < swan1.size(); s++) {
+                Point temp = swan1.poll();
+
+                for (int i = 0; i < 4; i++) {
+
+                    int nx = temp.x + dx[i];
+                    int ny = temp.y + dy[i];
+
+                    if (nx >= 0 && nx < lake.length && ny >= 0
+                        && ny < lake[0].length && lake[nx][ny].equals("S")) {
+                        return count;
+                    }
+                }
+            }
+
+
 
             String str = "";
             for (int x = 0; x < lake.length; x++) {
@@ -99,12 +144,12 @@ public class Main {
     }
 
 
-    public static void swanBFS() {
+    public static void swanBFS(Queue<Point> q) {
 
-        int swanSize = swan.size();
+        int swanSize = q.size();
         for (int s = 0; s < swanSize; s++) {
 
-            Point temp = swan.poll();
+            Point temp = q.poll();
 
             for (int i = 0; i < 4; i++) {
 
@@ -114,8 +159,9 @@ public class Main {
                 if (nx >= 0 && nx < lake.length && ny >= 0
                     && ny < lake[0].length && lake[nx][ny].equals(".")) {
 
-                    lake[nx][ny] = "L";
-                    swan.add(new Point(nx, ny));
+                    lake[nx][ny] = lake[temp.x][temp.y];
+
+                    q.add(new Point(nx, ny));
                 }
             }
         }
